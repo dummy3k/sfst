@@ -36,6 +36,13 @@ $(document).ready(function(){
       $(this).fadeTo("slow", 0.33);
     });
 
+    $('a.reveal_link').click(function(){
+        id = $(this).attr('id');
+        $(this).fadeOut("slow", function(){
+                $("#" + id + "_result").fadeIn("slow");
+            });
+    });
+
 });
 
 
@@ -55,9 +62,33 @@ Hello World !! (display due to HTML)
 <div id="textBox">This text will be changed to something else</div>
 <div id="textBox2">This text will be changed to something else</div>
 
-<p>
-    Hello World!
-</p>
+<p>Hello World!</p>
+
+
+
+<div>
+<span>Player1</span>
+<span>0 : 0</span>
+<span>Player2</span>
+</div>
+
+<div>
+<span>Game1</span>
+<span><a href="#" id="reval1" class="reveal_link">Reveal</a></span>
+<span style='display:none' id="reval1_result">Winner: Player1</span>
+</div>
+
+<div>
+<span>Game2</span>
+<span><a href="#" id="reval2" class="reveal_link">Reveal</a></span>
+<span style='display:none' id="reval2_result">Winner: Player2</span>
+</div>
+
+<div>
+<span>Game3</span>
+<span><a href="#" id="">Reveal</a></span>
+<span style='display:none' id="result3">Winner: Player1</span>
+</div>
 
 </body>
 </html>
