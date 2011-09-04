@@ -9,6 +9,8 @@ if __name__ == '__main__':
 
 log = logging.getLogger(__name__)
 
+video_id = 0
+
 for page_no in range(1, 999):
     url = 'http://day9.tv/archives/page/%s/' % page_no
     print "# " + url
@@ -40,4 +42,5 @@ for page_no in range(1, 999):
     links = filter(lambda x: not x[0].endswith('#disqus_thread'), links)
     #~ pprint(links)
     for item in links:
-        print(item)
+        print((video_id,) + item)
+        video_id += 1
