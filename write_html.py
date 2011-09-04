@@ -1,4 +1,5 @@
 from mako.template import Template
+from mako.lookup import TemplateLookup
 from pprint import pprint
 
 #~ Machine vs Sen Game 2 Quarter Finals of Root Gamings WARZONE
@@ -18,9 +19,13 @@ class Engagement():
         self.games = games
 
 class Game():
+    __next_id__ = 1
+
     def __init__(self, url, winner):
         self.winner = winner
         self.url = url
+        self.id = Game.__next_id__
+        Game.__next_id__ += 1
 
 engagements = EngagementRound([
                Engagement('Quarter Finals Group A',
@@ -34,11 +39,15 @@ engagements = EngagementRound([
                            Game('http://blip.tv/file/4532105', '???')))])
 
 
-#~ print Template("hello ${data}!").render(data="world")
+mylookup = TemplateLookup(directories=['templates'])
+#~ mytemplate = Template(filename='engagement_box.mako', lookup=mylookup)
 
-mytemplate = Template(filename='templates/engagement_box.mako')
+#~ mytemplate = mylookup.get_template('engagement_box.mako')
+#~ print mytemplate.render(c=engagements.engagements[1])
+#~ print mytemplate.get_def('content').render(c=engagements.engagements[1])
 
-#~ print mytemplate.render(e=engagements.engagements[1])
+
+mytemplate = mylookup.get_template('engagement_round.mako')
+print mytemplate.render(c=engagements)
 
 
-pprint(engagements)
