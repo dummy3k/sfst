@@ -1,4 +1,5 @@
 from mako.template import Template
+from pprint import pprint
 
 #~ Machine vs Sen Game 2 Quarter Finals of Root Gamings WARZONE
 #~ Machine vs Sen Game 1 Quarter Finals of Root Gamings WARZONE
@@ -37,4 +38,7 @@ engagements = EngagementRound([
 
 mytemplate = Template(filename='templates/engagement_box.mako')
 
-print mytemplate.render(e=engagements.engagements[1])
+#~ print mytemplate.render(e=engagements.engagements[1])
+
+
+pprint(engagements)
