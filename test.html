@@ -17,6 +17,27 @@ function change_content(el, new_text){
         });
 }
 
+revealed = new Array();
+predecessor = new Array();
+predecessor['reval2'] = 'reval1';
+predecessor['reval3'] = 'reval2';
+
+function reveal_result(id){
+    if (revealed[id]) {
+        console.log('id already revealed');
+        return;
+    }
+    revealed[id] = true;
+    console.log("reveal id: " + id);
+    $("#" + id).fadeOut("slow", function(){
+            $("#" + id + "_result").fadeIn("slow");
+        });
+
+    if (predecessor[id]) {
+        reveal_result(predecessor[id]);
+    }
+}
+
 $(document).ready(function(){
  $("#flag").html("Hello World !! (display due to jQuery)");
 
@@ -38,12 +59,18 @@ $(document).ready(function(){
 
     $('a.reveal_link').click(function(){
         id = $(this).attr('id');
+        reveal_result(id);
+        /*
+        revealed[id] = true;
+        console.log("id: " + id);
         $(this).fadeOut("slow", function(){
                 $("#" + id + "_result").fadeIn("slow");
             });
+        */
     });
 
 });
+
 
 
 </script>
@@ -86,8 +113,8 @@ Hello World !! (display due to HTML)
 
 <div>
 <span>Game3</span>
-<span><a href="#" id="">Reveal</a></span>
-<span style='display:none' id="result3">Winner: Player1</span>
+<span><a href="#" id="reval3" class="reveal_link">Reveal</a></span>
+<span style='display:none' id="reval3_result">Winner: Player3</span>
 </div>
 
 </body>

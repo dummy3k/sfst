@@ -13,16 +13,41 @@
 <span><a href="#" id="reval${item.id}" class="reveal_link">Reveal</a></span>
 <span style='display:none' id="reval${item.id}_result">Winner: ${item.winner}</span>
 </div>
+%if item.predecessor:
+<script type="text/javascript">
+predecessor['reval${item.id}'] = 'reval${item.predecessor.id}';
+</script>
+%endif
 
 % endfor
 </%def>
 
-<%def name="ready_javascript()">
-$('a.reveal_link').click(function(){
-    id = $(this).attr('id');
-    $(this).fadeOut("slow", function(){
-            $("#" + id + "_result").fadeIn("slow");
-        });
+<%def name="javascript_head()">
+revealed = new Array();
+predecessor = new Array();
+
+$(document).ready(function(){
+    $('a.reveal_link').click(function(){
+        id = $(this).attr('id');
+        reveal_result(id);
+    });
+
+    function reveal_result(id){
+        if (revealed[id]) {
+            console.log('id %d already revealed', id);
+            return;
+        }
+        revealed[id] = true;
+        console.log("reveal id: " + id);
+        $("#" + id).fadeOut("slow", function(){
+                $("#" + id + "_result").fadeIn("slow");
+            });
+
+        if (predecessor[id]) {
+            reveal_result(predecessor[id]);
+        }
+    }
 });
+
 </%def>
 

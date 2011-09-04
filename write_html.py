@@ -18,12 +18,19 @@ class Engagement():
         self.players = players
         self.games = games
 
+        predecessor = None
+        for item in self.games:
+            if predecessor:
+                item.predecessor = predecessor
+            predecessor = item
+
 class Game():
     __next_id__ = 1
 
     def __init__(self, url, winner):
         self.winner = winner
         self.url = url
+        self.predecessor = None
         self.id = Game.__next_id__
         Game.__next_id__ += 1
 
