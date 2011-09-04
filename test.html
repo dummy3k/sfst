@@ -1,0 +1,63 @@
+
+
+<html>
+<head>
+<title>jQuery Hello World</title>
+
+<script type="text/javascript" src="static/jquery-1.6.2.min.js"></script>
+
+</head>
+
+<script type="text/javascript">
+
+function change_content(el, new_text){
+    el.fadeOut("slow", function(){
+            el.html(new_text);
+            el.fadeIn("slow");
+        });
+}
+
+$(document).ready(function(){
+ $("#flag").html("Hello World !! (display due to jQuery)");
+
+    $('#doSomethingElse').click(function(){
+        change_content($("#textBox"), "One")
+        change_content($("#textBox2"), "Two")
+    });
+
+        //alert('You did something, woo hoo!');
+
+    $('a.doSomething').click(function(){
+        change_content($("#textBox"), "Hello")
+        change_content($("#textBox2"), "World")
+    });
+
+    $("p:first").click(function () {
+      $(this).fadeTo("slow", 0.33);
+    });
+
+});
+
+
+</script>
+<body>
+<font color=red>
+Hello World !! (display due to HTML)
+</font>
+<font color=blue>
+<div id="flag">
+</div>
+</font>
+
+<a href="#" class="doSomething">Click!</a>
+<a href="#" id="doSomethingElse">Click 2!</a>
+
+<div id="textBox">This text will be changed to something else</div>
+<div id="textBox2">This text will be changed to something else</div>
+
+<p>
+    Hello World!
+</p>
+
+</body>
+</html>
