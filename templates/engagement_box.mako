@@ -1,6 +1,8 @@
 <%inherit file="/base_html.mako"/>
 
 <%def name="content(e)">
+##<div>${e.name}</div>
+
 <div>
 <span>${e.players[0]}</span>
 <span>0 : 0</span>
@@ -14,9 +16,13 @@
 <span style='display:none' id="reval${item.id}_result">Winner: ${item.winner}</span>
 </div>
 %if item.predecessor:
-<script type="text/javascript">
-predecessor['reval${item.id}'] = 'reval${item.predecessor.id}';
-</script>
+    <script type="text/javascript">
+    ##predecessor['reval${item.id}'] = 'reval${item.predecessor.id}';
+    predecessor['reval${item.id}'] = new Array();
+##    % for pre in item.predecessor:
+##    predecessor['reval${item.id}'].push('${pre}');
+##    % endfor
+    </script>
 %endif
 
 % endfor
