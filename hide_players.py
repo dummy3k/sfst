@@ -54,9 +54,9 @@ def get_player_names():
 def do_othter():
     videos.reverse()
     for video_id, url, text in videos:
-        #~ for player_name in player_names:
-            #~ text = re.sub('^%s ' % player_name, '??? ', text, flags=re.IGNORECASE)
-            #~ text = re.sub(' %s ' % player_name, ' ??? ', text, flags=re.IGNORECASE)
+        for player_name in player_names:
+            text = re.sub('^%s ' % player_name, '??? ', text, flags=re.IGNORECASE)
+            text = re.sub(' %s ' % player_name, ' ??? ', text, flags=re.IGNORECASE)
 
         #~ knwon_tournament = False
         #~ for tournament in tournaments:
@@ -65,8 +65,8 @@ def do_othter():
                 #~ break
 
         #~ if not knwon_tournament:
-        if 'Root Gamings' in text:
-            print "<a href='%s'>%s</a></br>" % (url, text)
+        #~ if 'Root Gamings' in text:
+        print "<a href='%s'>%s</a></br>" % (url, text)
         #~ print text
 
 do_othter()

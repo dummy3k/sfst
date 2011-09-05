@@ -14,7 +14,7 @@ ${box.javascript_head()}
     %else:
     <td>
     %endif
-        ${box.content(item)}</td>
+    ${box.content(item.engagement)}</td>
 % endfor
 </%def>
 
