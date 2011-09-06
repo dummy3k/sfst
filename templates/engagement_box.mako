@@ -43,25 +43,29 @@ $(document).ready(function() {
 var eg = ${json.dumps(e.to_dict())}
 eg.reveal = function(id_no) {
     console.log("id_no: " + id_no);
-    for (key in eg.games) {
-        console.log(eg.games[key].id)
-        reveal_result(eg.games[key].id);
-        if (eg.games[key].id == id_no) {
-            change_content($("#score${e.id}"), eg.games[key].score);
-            break;
+    if (id_no == eg.games[eg.games.length - 1].id) {
+        this.reveal_all();
+    } else {
+        for (key in eg.games) {
+            console.log(eg.games[key].id)
+            reveal_result(eg.games[key].id);
+            if (eg.games[key].id == id_no) {
+                change_content($("#score1"), eg.games[key].score);
+                break;
+            }
         }
     }
 };
-eg.reveal_all = function(id_no) {
-    console.log("id_no: " + id_no);
+eg.reveal_all = function() {
+    console.log("this.id: " + this.id);
     for (key in eg.games) {
         console.log(eg.games[key].id)
         reveal_result(eg.games[key].id);
     }
-    $("#egbox" + id_no).find("a.reveal_blank").css('display' , 'none');
-    $("#egbox" + id_no).find("a.blank").css('text-decoration', 'line-through');
-    $("#egbox" + id_no).find("a.blank").removeAttr('href');
-    change_content($("#score1"), eg.games[eg.games.length - 1].score);
+    $("#egbox" + this.id).find("a.reveal_blank").css('display' , 'none');
+    $("#egbox" + this.id).find("a.blank").css('text-decoration', 'line-through');
+    $("#egbox" + this.id).find("a.blank").removeAttr('href');
+    change_content($("#score" + this.id), eg.games[eg.games.length - 1].score);
 };
 
 </script>
