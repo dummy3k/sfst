@@ -44,7 +44,7 @@ eg.reveal = function(id_no) {
         console.log(eg.games[key].id)
         reveal_result(eg.games[key].id);
         if (eg.games[key].id == id_no) {
-            change_content($("#score2"), eg.games[key].score);
+            change_content($("#score${e.id}"), eg.games[key].score);
             break;
         }
     }
@@ -63,8 +63,14 @@ eg.reveal = function(id_no) {
 <span><a href="#" id="reval${item.id}" class="reveal_link">Reveal</a></span>
 <span style='display:none' id="reval${item.id}_result">Winner: ${item.winner}</span>
 </div>
-
-
 % endfor
+
+% for n in range(len(e.games), e.best_of):
+<div>
+<span><a href="#" target="_blank" id="blank">Game ${n + 1}</a></span>
+<span><a href="#" id="blank${e.id}" class="reveal_blank">Reveal</a></span>
+</div>
+% endfor
+
 </%def>
 

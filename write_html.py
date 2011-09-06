@@ -15,6 +15,7 @@ class Engagement():
         Engagement.__next_id__ += 1
 
         self.name = None
+        self.best_of = 5
         self.players = players
         self.games = games
         #~ self.predecessor = predecessor
@@ -137,7 +138,7 @@ import json
 #~ pprint(json.dumps(engagements['Quarter Finals Group B'].to_dict()))
 
 mytemplate = mylookup.get_template('engagement_box.mako')
-print mytemplate.render(c=engagements['Quarter Finals Group B'])
+print mytemplate.render(c=engagements['Quarter Finals Group A'])
 #~ print mytemplate.get_def('content').render(e=engagements['Quarter Finals Group A'])
 ##~ print mytemplate.render(c=engagements.engagements[1])
 
