@@ -36,6 +36,7 @@ class Engagement():
 
     def to_dict(self):
         return {'name':self.name,
+                'id':self.id,
                 'games':map(lambda x: x.to_dict(), self.games)}
 
 class Game():

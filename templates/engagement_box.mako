@@ -3,9 +3,6 @@
 
 <%def name="javascript_head()">
 revealed = new Array();
-##predecessor = new Array();
-##reval_actions = new Array();
-##scores = new Array();
 
 function reveal_result(id){
     if (revealed[id]) {
@@ -28,8 +25,14 @@ $(document).ready(function(){
 
 });
 
-
-
+$(document).ready(function() {
+    $('a.reveal_blank').click(function(){
+        id = $(this).attr('id');
+        id_no = id.substr(5);
+        console.log("id_no: " + id_no);
+        eg.reveal_all(id_no);
+    });
+});
 </%def>
 
 
@@ -49,8 +52,21 @@ eg.reveal = function(id_no) {
         }
     }
 };
+eg.reveal_all = function(id_no) {
+    console.log("id_no: " + id_no);
+    for (key in eg.games) {
+        console.log(eg.games[key].id)
+        reveal_result(eg.games[key].id);
+    }
+    $("#egbox" + id_no).find("a.reveal_blank").css('display' , 'none');
+    $("#egbox" + id_no).find("a.blank").css('text-decoration', 'line-through');
+    $("#egbox" + id_no).find("a.blank").removeAttr('href');
+    change_content($("#score1"), eg.games[eg.games.length - 1].score);
+};
+
 </script>
 
+<span id="egbox${e.id}">
 <div>
 <span>${e.players[0]}</span>
 <span id="score${e.id}">0 : 0</span>
@@ -67,10 +83,11 @@ eg.reveal = function(id_no) {
 
 % for n in range(len(e.games), e.best_of):
 <div>
-<span><a href="#" target="_blank" id="blank">Game ${n + 1}</a></span>
+<span><a href="#" target="_blank" class="blank">Game ${n + 1}</a></span>
 <span><a href="#" id="blank${e.id}" class="reveal_blank">Reveal</a></span>
 </div>
 % endfor
+</span>
 
 </%def>
 
