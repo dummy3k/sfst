@@ -3,6 +3,7 @@
 
 <%def name="javascript_head()">
 revealed = new Array();
+engagments = new Array();
 
 function reveal_result(id){
     if (revealed[id]) {

@@ -129,8 +129,7 @@ for k, v in rounds.items():
 ##~ mytemplate = Template(filename='engagement_box.mako', lookup=mylookup)
 mylookup = TemplateLookup(directories=['templates'])
 
-import json
-
+#~ import json
 #~ print json.dumps(Game('', '???'))
 #~ print json.dumps(('', '???'))
 #~ print json.dumps({'foo':1, 'bar':2})
@@ -138,13 +137,13 @@ import json
 #~ pprint(engagements['Quarter Finals Group B'].to_dict())
 #~ pprint(json.dumps(engagements['Quarter Finals Group B'].to_dict()))
 
-mytemplate = mylookup.get_template('engagement_box.mako')
-print mytemplate.render(c=engagements['Quarter Finals Group A'])
+#~ mytemplate = mylookup.get_template('engagement_box.mako')
+#~ print mytemplate.render(c=engagements['Quarter Finals Group A'])
 #~ print mytemplate.get_def('content').render(e=engagements['Quarter Finals Group A'])
 ##~ print mytemplate.render(c=engagements.engagements[1])
 
-#~ mytemplate = mylookup.get_template('engagement_round.mako')
-#~ print mytemplate.render(c=rounds['Semi Finals'])
+mytemplate = mylookup.get_template('engagement_round.mako')
+print mytemplate.render(c=rounds['Quarter Finals'])
 #~ print mytemplate.get_def('tr').render(r=rounds['Quarter Finals'])
 
 #~ mytemplate = mylookup.get_template('engagements.mako')
