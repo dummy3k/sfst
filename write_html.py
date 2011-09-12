@@ -107,7 +107,7 @@ rounds = {'Quarter Finals':EngagementRound(None, [
             Dependency(engagements['Semi Finals Group A'],
                 'Quarter Finals Group A', 'Quarter Finals Group B'),
             Dependency(engagements['Semi Finals Group B'],
-                'Quarter Finals Group C', 'Quarter Finals Group D')])
+                'Quarter Finals Group C', 'Quarter Finals Group D')]),
             #~ ('Semi Finals Group A',
                 #~ Dependency('Quarter Finals Group A', 'Quarter Finals Group B')),
             #~ ('Semi Finals Group B',
@@ -118,6 +118,9 @@ rounds = {'Quarter Finals':EngagementRound(None, [
          #~ 'Grand Finals':EngagementRound(4,
             #~ [('Grand Finals',
                 #~ Dependency('Semi Final'))])
+         'Grand Finals':EngagementRound(4, [
+            Dependency(engagements['Grand Finals'],
+                'Semi Finals Group A', 'Semi Finals Group B')])
         }
 
 for k, v in engagements.items():
@@ -142,12 +145,12 @@ mylookup = TemplateLookup(directories=['templates'])
 #~ print mytemplate.get_def('content').render(e=engagements['Quarter Finals Group A'])
 ##~ print mytemplate.render(c=engagements.engagements[1])
 
-mytemplate = mylookup.get_template('engagement_round.mako')
-print mytemplate.render(c=rounds['Quarter Finals'])
+#~ mytemplate = mylookup.get_template('engagement_round.mako')
+#~ print mytemplate.render(c=rounds['Quarter Finals'])
 #~ print mytemplate.get_def('tr').render(r=rounds['Quarter Finals'])
 
-#~ mytemplate = mylookup.get_template('engagements.mako')
-#~ print mytemplate.render(c=rounds.values())
+mytemplate = mylookup.get_template('engagements.mako')
+print mytemplate.render(c=rounds.values())
 #~ print mytemplate.render(c=engagements)
 
 

@@ -33,44 +33,18 @@ $(document).ready(function() {
         id = $(this).attr('id');
         id_no = id.substr(5);
         console.log("id_no: " + id_no);
-        eg.reveal_all(id_no);
+//        eg.reveal_all(id_no);
+        id_to_eg[id_no].reveal_all(id_no);
     });
 });
 
 function Engagement(data) {
+    console.log("hi there: " + data.games);
     this.data = data;
-
-    this.reveal = function(id_no) {
-        console.log("id_no: " + id_no);
-        if (id_no == eg.games[eg.games.length - 1].id) {
-            this.reveal_all();
-        } else {
-            for (key in eg.games) {
-                console.log(eg.games[key].id)
-                reveal_result(eg.games[key].id);
-                if (eg.games[key].id == id_no) {
-                    change_content($("#score1"), eg.games[key].score);
-                    break;
-                }
-            }
-        }
-    };
-    
+    this.games = data.games;
 };
 
-</%def>
-
-
-<%def name="content(e)">
-##<div>${e.name}</div>
-
-
-<a href="javascript:alert('hi');" >Say hi!</a>
-<script type="text/javascript">
-var eg = ${json.dumps(e.to_dict())};
-engagments.push(${json.dumps(e.to_dict())});
-
-eg.reveal = function(id_no) {
+Engagement.prototype.reveal = function(id_no) {
     console.log("id_no: " + id_no);
     if (id_no == this.games[this.games.length - 1].id) {
         this.reveal_all();
@@ -86,7 +60,7 @@ eg.reveal = function(id_no) {
     }
 };
 
-eg.reveal_all = function() {
+Engagement.prototype.reveal_all = function() {
     console.log("this.id: " + this.id);
     for (key in this.games) {
         console.log(this.games[key].id)
@@ -97,6 +71,19 @@ eg.reveal_all = function() {
     $("#egbox" + this.id).find("a.blank").removeAttr('href');
     change_content($("#score" + this.id), this.games[this.games.length - 1].score);
 };
+
+</%def>
+
+
+<%def name="content(e)">
+##<div>${e.name}</div>
+
+
+<a href="javascript:alert('hi');" >Say hi!</a>
+<script type="text/javascript">
+var eg = new Engagement(${json.dumps(e.to_dict())});
+engagments.push(${json.dumps(e.to_dict())});
+
 
 </script>
 
@@ -110,7 +97,8 @@ eg.reveal_all = function() {
 % for index, item in enumerate(e.games):
 <div>
 <span><a href="${item.url}" target="_blank">Game ${index + 1}</a></span>
-<span><a href="#" id="reval${item.id}" class="reveal_link">Reveal</a></span>
+##<span><a href="#" id="reval${item.id}" class="reveal_link">Reveal</a></span>
+<span><a href="javascript:reveal(${e.id}, ${index});" id="reval${item.id}">Reveal</a></span>
 <span style='display:none' id="reval${item.id}_result">Winner: ${item.winner}</span>
 </div>
 
@@ -119,6 +107,10 @@ id_to_eg[${item.id}] = eg;
 </script>
 
 % endfor
+
+<script type="text/javascript">
+id_to_eg[${e.id}] = eg;
+</script>
 
 % for n in range(len(e.games), e.best_of):
 <div>
